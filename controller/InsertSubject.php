@@ -31,4 +31,15 @@ class InsertSubject
     $response->getBody()->write(\json_encode($query));
     return $response;
   }
+
+  public function getSubject(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $query = $db->query(
+      "SELECT * FROM `tb_subject`"
+    );
+    //output
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
 }

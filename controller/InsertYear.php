@@ -37,4 +37,15 @@ class InsertYear
     $response->getBody()->write(\json_encode($query));
     return $response;
   }
+
+  public function getYear(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $query = $db->query(
+      "SELECT * FROM `tb_year`"
+    );
+    //output
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
 }
