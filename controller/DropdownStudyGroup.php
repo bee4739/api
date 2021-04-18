@@ -32,50 +32,37 @@ class DropdownStudyGroup
   {
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
+    // $s = explode("-", $rawData['Subject_ID']);
+    // $y = explode("/", $rawData['Term']);
 
-    $s = explode("-", '1111-ljnj;l,.');
-    $y = explode("/", '1236/ภาคเรียนที่2');
+    // // $s = explode("-", '0000-aa');
+    // // $y = explode("/", '2564/ภาคเรียนที่2');
 
-    $year = $db->query(
-      "SELECT `Year_ID` FROM `tb_year`
-      WHERE Year = $y[0] AND Term = `$y[1]`"
-
-    );
+    // $year = $db->query(
+    //   "SELECT `Year_ID` FROM `tb_year`
+    //   WHERE Year = '" . $y[0] . "' AND Term = '" . $y[1] . "'"
+    // );
 
     // $subject = $db->query(
     //   "SELECT `Subject_PK` FROM `tb_subject`
-    //   WHERE `Subject_ID` = $s[0] AND `Subject_NameTH` = $s[1]"
-
-    // );
-    // $subject = $db->query(
-    //   "SELECT `Subject_PK` FROM `tb_subject`
-    //   WHERE `Subject_ID` = $s[0] AND `Subject_NameTH` = $s[1]"
+    //   WHERE Subject_ID = '" . $s[1] . "' AND Subject_NameTH = '" . $s[1] . "'"
     // );
 
-
-    // echo $year;
-    // echo $subject;
-
-
-    // $query = $db->query("INSERT INTO `tb_class`
-    //     (
-    //       `Subject_PK`, 
-    //       `Group_Study`, 
-    //       `Pass_Group`, 
-    //       `Year_ID`
-    //     )
-    //     VALUES
-    //     (
-    //       '" . $subject . "',
-    //     '" . $rawData['Group_Study'] . "',
-    //     '" . $rawData['Pass_Group'] . "' 
-    //     '" . $year . "')
-    //     ;");
+    $query = $db->query("INSERT INTO `tb_class`(
+      `Subject_PK`, 
+      `Group_Study`, 
+      `Pass_Group`, 
+      `Year_ID`) 
+  VALUES (
+      '" . $rawData['Subject_ID'] . "',
+      '" . $rawData['Group_Study'] . "',
+      '" . $rawData['Pass_Group'] . "',
+      '" . $rawData['Term'] . "');");
 
 
 
-    // $response->getBody()->write(\json_encode($query));
-    $response->getBody()->write(\json_encode($y));
+    $response->getBody()->write(\json_encode($query));
+    // $response->getBody()->write(\json_encode($y));
     return $response;
   }
 
@@ -94,6 +81,7 @@ class DropdownStudyGroup
       LEFT JOIN `tb_year` 
       ON `tb_class`.`Year_ID` = `tb_year`.`Year_ID`;"
     );
+
     $response->getBody()->write(\json_encode($query));
     return $response;
   }

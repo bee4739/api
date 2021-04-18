@@ -42,7 +42,8 @@ class InsertYear
   {
     $db = new \Tools\Database();
     $query = $db->query(
-      "SELECT * FROM `tb_year`"
+      "SELECT * FROM `tb_year`
+      ORDER BY Year;"
     );
     //output
     $response->getBody()->write(\json_encode($query));
