@@ -70,7 +70,8 @@ class DropdownStudyGroup
   {
     $db = new \Tools\Database();
     $query = $db->query(
-      "SELECT `tb_subject`.`Subject_ID`, 
+      "SELECT Class_ID,
+      `tb_subject`.`Subject_ID`, 
       `tb_subject`.`Subject_NameTH`,  
       `Group_Study`,
       `tb_year`.`Year`,
@@ -82,6 +83,15 @@ class DropdownStudyGroup
       ON `tb_class`.`Year_ID` = `tb_year`.`Year_ID`;"
     );
 
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function delStudyGroup(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $query = $db->query("DELETE FROM `tb_class` WHERE `tb_class`.`Class_ID` = '" . $rawData['Class_ID'] . "'");
     $response->getBody()->write(\json_encode($query));
     return $response;
   }

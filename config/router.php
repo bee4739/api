@@ -24,3 +24,4 @@ $app->post('/dropdownSubject', \Controller\DropdownStudyGroup::class . ":dropdow
 $app->post('/dropdownYear', \Controller\DropdownStudyGroup::class . ":dropdownYear");
 $app->post('/insertStudyGroup', \Controller\DropdownStudyGroup::class . ":insertStudyGroup");
 $app->post('/getStudyGroup', \Controller\DropdownStudyGroup::class . ":getStudyGroup");
+$app->post('/delStudyGroup', \Controller\DropdownStudyGroup::class . ":delStudyGroup");
