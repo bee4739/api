@@ -25,3 +25,7 @@ $app->post('/dropdownYear', \Controller\DropdownStudyGroup::class . ":dropdownYe
 $app->post('/insertStudyGroup', \Controller\DropdownStudyGroup::class . ":insertStudyGroup");
 $app->post('/getStudyGroup', \Controller\DropdownStudyGroup::class . ":getStudyGroup");
 $app->post('/delStudyGroup', \Controller\DropdownStudyGroup::class . ":delStudyGroup");
+$app->post('/editStudyGroup', \Controller\DropdownStudyGroup::class . ":editStudyGroup");
+
+// Teacher/Schedule/Attend
+$app->post('/insertScheduleAttend', \Controller\InsertScheduleAttend::class . ":insertScheduleAttend");

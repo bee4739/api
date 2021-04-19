@@ -75,7 +75,7 @@ class DropdownStudyGroup
       `tb_subject`.`Subject_NameTH`,  
       `Group_Study`,
       `tb_year`.`Year`,
-      `tb_year`.`Term` 
+      `tb_year`.`Term`,`tb_class`.`Subject_PK`, `tb_class`.`Year_ID`, Pass_Group
       FROM `tb_class`
       LEFT JOIN `tb_subject` 
       ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK` 
@@ -92,6 +92,21 @@ class DropdownStudyGroup
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
     $query = $db->query("DELETE FROM `tb_class` WHERE `tb_class`.`Class_ID` = '" . $rawData['Class_ID'] . "'");
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function editStudyGroup(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $query = $db->query("UPDATE `tb_class` SET 
+      Subject_PK = '" . $rawData['Subject_IDE'] . "',
+      Group_Study = '" . $rawData['Group_StudyE'] . "',
+      Pass_Group = '" . $rawData['Pass_GroupE'] . "',
+      Year_ID = '" . $rawData['TermE'] . "'
+      WHERE `tb_class`.`Class_ID` = '" . $rawData['Class_ID'] . "'");
+
     $response->getBody()->write(\json_encode($query));
     return $response;
   }
