@@ -52,12 +52,15 @@ class DropdownStudyGroup
       `Subject_PK`, 
       `Group_Study`, 
       `Pass_Group`, 
-      `Year_ID`) 
+      `Year_ID`,
+      `User_ID`) 
   VALUES (
       '" . $rawData['Subject_ID'] . "',
       '" . $rawData['Group_Study'] . "',
       '" . $rawData['Pass_Group'] . "',
-      '" . $rawData['Term'] . "');");
+      '" . $rawData['Term'] . "',
+      '" . $rawData['User_ID'] . "'
+      );");
 
     $response->getBody()->write(\json_encode($query));
     // $response->getBody()->write(\json_encode($y));
@@ -67,6 +70,7 @@ class DropdownStudyGroup
   public function getStudyGroup(Request $request, Response $response, $args)
   {
     $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
     $query = $db->query(
       "SELECT Class_ID,
       `tb_subject`.`Subject_ID`, 
@@ -78,7 +82,8 @@ class DropdownStudyGroup
       LEFT JOIN `tb_subject` 
       ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK` 
       LEFT JOIN `tb_year` 
-      ON `tb_class`.`Year_ID` = `tb_year`.`Year_ID`;"
+      ON `tb_class`.`Year_ID` = `tb_year`.`Year_ID`
+      WHERE User_ID = '" . $rawData['Username'] . "';"
     );
 
     $response->getBody()->write(\json_encode($query));
