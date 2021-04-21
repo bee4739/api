@@ -30,3 +30,5 @@ $app->post('/editStudyGroup', \Controller\DropdownStudyGroup::class . ":editStud
 // Teacher/Schedule/Attend
 $app->post('/dropdownSubSchedule', \Controller\InsertScheduleAttend::class . ":dropdownSubSchedule");
 $app->post('/insertScheduleAttend', \Controller\InsertScheduleAttend::class . ":insertSchedule");
+
+$app->post('/getDay', \Controller\Day::class . ":getDay");
