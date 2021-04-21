@@ -59,8 +59,6 @@ class DropdownStudyGroup
       '" . $rawData['Pass_Group'] . "',
       '" . $rawData['Term'] . "');");
 
-
-
     $response->getBody()->write(\json_encode($query));
     // $response->getBody()->write(\json_encode($y));
     return $response;

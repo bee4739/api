@@ -28,4 +28,5 @@ $app->post('/delStudyGroup', \Controller\DropdownStudyGroup::class . ":delStudyG
 $app->post('/editStudyGroup', \Controller\DropdownStudyGroup::class . ":editStudyGroup");
 
 // Teacher/Schedule/Attend
-$app->post('/insertScheduleAttend', \Controller\InsertScheduleAttend::class . ":insertScheduleAttend");
+$app->post('/dropdownSubSchedule', \Controller\InsertScheduleAttend::class . ":dropdownSubSchedule");
+$app->post('/insertScheduleAttend', \Controller\InsertScheduleAttend::class . ":insertSchedule");
