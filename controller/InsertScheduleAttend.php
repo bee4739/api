@@ -45,4 +45,30 @@ class InsertScheduleAttend
     $response->getBody()->write(\json_encode($query));
     return $response;
   }
+
+  public function delScheduleAttend(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $query = $db->query("DELETE FROM `tb_schedule` WHERE `tb_schedule`.Schedule_ID = '" . $rawData['Schedule_ID'] . "'");
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function editScheduleAttend(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $query = $db->query("UPDATE `tb_schedule` SET 
+      Day = '" . $rawData['DayE'] . "',
+      Start_Time = '" . $rawData['Start_TimeE'] . "',
+      End_Time = '" . $rawData['End_TimeE'] . "',
+      Class_ID = '" . $rawData['Class_IDE'] . "',
+      Subject_Type = '" . $rawData['Subject_TypeE'] . "'
+      WHERE `tb_schedule`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'");
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
 }
