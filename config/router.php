@@ -34,3 +34,6 @@ $app->post('/delScheduleAttend', \Controller\InsertScheduleAttend::class . ":del
 $app->post('/editScheduleAttend', \Controller\InsertScheduleAttend::class . ":editScheduleAttend");
 
 $app->post('/getDay', \Controller\Day::class . ":getDay");
+
+
+$app->post('/createFolder', \Controller\CreateFolder::class . ":createFolder");
