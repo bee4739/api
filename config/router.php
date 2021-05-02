@@ -36,4 +36,4 @@ $app->post('/editScheduleAttend', \Controller\InsertScheduleAttend::class . ":ed
 $app->post('/getDay', \Controller\Day::class . ":getDay");
 
 
-$app->post('/createFolder', \Controller\CreateFolder::class . ":createFolder");
+$app->post('/createImage', \Controller\UploadImage::class . ":createImage");
