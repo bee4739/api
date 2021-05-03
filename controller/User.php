@@ -39,4 +39,17 @@ class User
     $response->getBody()->write(\json_encode($returnData));
     return $response;
   }
+
+  public function getImageFile(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    // $query = $db->query(
+    //   "SELECT * FROM `tb_year`
+    //   ORDER BY Year;"
+    // );
+
+    $dumpListImageStudent = \json_decode(\file_get_contents('listname.json'));
+    $response->getBody()->write(\json_encode($dumpListImageStudent));
+    return $response;
+  }
 }

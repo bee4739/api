@@ -2,7 +2,7 @@
 
 $app->get('/', \Controller\Home::class . ":index");
 $app->post('/login', \Controller\User::class . ":login");
-
+$app->get('/getImageFile', \Controller\User::class . ":getImageFile");
 // Admin/year
 $app->post('/insertYear', \Controller\InsertYear::class . ":insertYear");
 $app->post('/getYear', \Controller\InsertYear::class . ":getYear");
