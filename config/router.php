@@ -37,4 +37,6 @@ $app->post('/getDay', \Controller\Day::class . ":getDay");
 
 $app->post('/createImage', \Controller\UploadImage::class . ":createImage");
 
-$app->post('/showImage', \Controller\ShowImage::class . ":showImage");
+$app->post('/getStudyGroupStudent', \Controller\StudyGroupStudent::class . ":getStudyGroupStudent");
+$app->post('/insertStudyGroupStudent', \Controller\StudyGroupStudent::class . ":insertStudyGroupStudent");
+$app->post('/getStudent', \Controller\StudyGroupStudent::class . ":getStudent");
