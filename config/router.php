@@ -36,7 +36,10 @@ $app->post('/editScheduleAttend', \Controller\InsertScheduleAttend::class . ":ed
 $app->post('/getDay', \Controller\Day::class . ":getDay");
 
 $app->post('/createImage', \Controller\UploadImage::class . ":createImage");
+$app->post('/delImageinformation', \Controller\UploadImage::class . ":delImageinformation");
+
 
 $app->post('/getStudyGroupStudent', \Controller\StudyGroupStudent::class . ":getStudyGroupStudent");
 $app->post('/insertStudyGroupStudent', \Controller\StudyGroupStudent::class . ":insertStudyGroupStudent");
 $app->post('/getStudent', \Controller\StudyGroupStudent::class . ":getStudent");
+

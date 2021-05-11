@@ -84,4 +84,28 @@ class UploadImage
     $response->getBody()->write(\json_encode($output));
     return $response;
   }
+
+  public function delImageinformation(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $output = null;
+
+    $path = "imageStudent/".$rawData['username'] ."/" .$rawData['imageName'] ;
+
+    if (unlink($path)) {
+      $output = array(
+        "success" => true
+      );
+    } else {
+      $output = array(
+        "success" => false
+      );
+    } 
+
+    // unlink("imageStudent");
+ 
+    $response->getBody()->write(\json_encode($output));
+    return $response;
+  }
 }
