@@ -12,21 +12,28 @@ class StudyGroupStudent
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
 
-      $query = $db->query("INSERT INTO tb_student
+
+
+    $query = $db->query("INSERT INTO tb_student
       (
+      `Std_No`,
       `Std_ID`,
+      `Std_FirstName`,
+      `Std_LastName`,
       `Class_ID`
       )
       VALUES
       (
       '" . $rawData['User_ID'] . "',
+      '" . $rawData['Std_ID'] . "',
+      '" . $rawData['FirstName'] . "',
+      '" . $rawData['LastName'] . "',
       '" . $rawData['Study_Group'] . "'
       );");
 
     $response->getBody()->write(\json_encode($query));
     return $response;
- 
-}
+  }
 
   public function getStudyGroupStudent(Request $request, Response $response, $args)
   {
@@ -53,7 +60,7 @@ class StudyGroupStudent
       ON `tb_student`.`Class_ID` = `tb_class`.`Class_ID`
       LEFT JOIN `tb_subject`
       ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK`
-      WHERE `tb_student`.`Std_ID` = '" . $rawData['User_ID'] . "';"
+      WHERE `tb_student`.`Std_No` = '" . $rawData['User_ID'] . "';"
     );
 
     $response->getBody()->write(\json_encode($query));
