@@ -26,6 +26,7 @@ $app->post('/insertStudyGroup', \Controller\DropdownStudyGroup::class . ":insert
 $app->post('/getStudyGroup', \Controller\DropdownStudyGroup::class . ":getStudyGroup");
 $app->post('/delStudyGroup', \Controller\DropdownStudyGroup::class . ":delStudyGroup");
 $app->post('/editStudyGroup', \Controller\DropdownStudyGroup::class . ":editStudyGroup");
+$app->post('/getNameStd', \Controller\DropdownStudyGroup::class . ":getNameStd");
 
 // Teacher/Schedule/Attend
 $app->post('/dropdownSubSchedule', \Controller\InsertScheduleAttend::class . ":dropdownSubSchedule");
@@ -42,4 +43,3 @@ $app->post('/delImageinformation', \Controller\UploadImage::class . ":delImagein
 $app->post('/getStudyGroupStudent', \Controller\StudyGroupStudent::class . ":getStudyGroupStudent");
 $app->post('/insertStudyGroupStudent', \Controller\StudyGroupStudent::class . ":insertStudyGroupStudent");
 $app->post('/getStudent', \Controller\StudyGroupStudent::class . ":getStudent");
-
