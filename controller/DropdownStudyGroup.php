@@ -120,11 +120,24 @@ class DropdownStudyGroup
     $rawData = json_decode(file_get_contents('php://input'), true);
 
     $query = $db->query(
-      "SELECT `Std_ID`, `Std_FirstName`, `Std_LastName`, `Class_ID` FROM `tb_student`
-       WHERE `Class_ID` = '" . $rawData['classID'] . "'"
+      "SELECT `Std_No`, `Std_ID`, `Std_FirstName`, `Std_LastName`, `Class_ID` FROM `tb_student`
+       WHERE `Class_ID` = '" . $rawData['Class_ID'] . "'"
     );
 
     // WHERE `Class_ID` = '" . $rawData['Class_ID'] . "'
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function delNameStd(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+
+    $query = $db->query("DELETE FROM `tb_student` 
+                         WHERE `tb_student`.`Std_No` = '" . $rawData['Std_No'] . "'
+                         AND `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'");
 
     $response->getBody()->write(\json_encode($query));
     return $response;
