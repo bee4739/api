@@ -14,8 +14,19 @@ class CheckName
     $rawData = json_decode(file_get_contents('php://input'), true);
 
     $query = $db->query(
-      "SELECT `Std_No`, `Std_ID`, `Std_FirstName`, `Std_LastName`, `Class_ID` FROM `tb_student`
-       WHERE `Class_ID` = '" . $rawData['Class_ID'] . "'"
+      "SELECT `tb_student`.*, `tb_user`.*,
+      CONCAT(`tb_checked`.`Time`) as `isCheck`
+      FROM `tb_student`
+
+      LEFT JOIN `tb_user`
+      ON `tb_student`.`Std_No` = `tb_user`.`User_ID`
+
+      LEFT JOIN `tb_checked`
+      ON `tb_student`.`Std_No` = `tb_checked`.`Student_ID` 
+      AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+      AND `tb_checked`.`Date` = '" . date("Y-m-d") . "'
+      
+      WHERE `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'"
     );
 
     $response->getBody()->write(\json_encode($query));
@@ -39,9 +50,10 @@ class CheckName
     // $student = $db->query("SELECT 
     //                               `Std_No`
     //                         FROM `tb_student` 
-    //                         LEFT JOIN `tb_user`
+    //                         LEFT JOIN `Username`
     //                         ON `tb_student`.`Std_ID` = `tb_user`.`Std_ID`
     //                         WHERE `tb_user`.`Username` = '" . $rawData['name'] . "'");
+
 
     $query = $db->query("INSERT INTO `tb_check`
       (
@@ -55,7 +67,11 @@ class CheckName
       '1',
       '2021-05-28',
       '" . $rawData['Schedule_ID'] . "',
-      '3')");
+      '" . $rawData['name'] . "'
+      );");
+
+
+
 
     // WHERE '" . $stdNo . "' = '" . $student . "'
 
