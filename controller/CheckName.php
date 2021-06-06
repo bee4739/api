@@ -22,7 +22,7 @@ class CheckName
       ON `tb_student`.`Std_No` = `tb_user`.`User_ID`
 
       LEFT JOIN `tb_checked`
-      ON `tb_student`.`Std_No` = `tb_checked`.`Student_ID` 
+      ON `tb_student`.`Std_No` = `tb_checked`.`Std_No` 
       AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
       AND `tb_checked`.`Date` = '" . date("Y-m-d") . "'
       
@@ -37,43 +37,46 @@ class CheckName
   {
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
+    $username = json_decode($rawData['username'], true);
+    $query_user = array();
+    $insertStatus = array();
 
-    // $stdNo = $db->query("SELECT 
-    //                               `Std_No`
-    //                         FROM `tb_student`");
+    if (count($username) > 0) {
+      foreach ($username as $list) {
+        $query_user[] =  $db->query("SELECT * FROM `tb_user` WHERE `Username` = '" . $list . "' LIMIT 1");
+      }
+    }
 
-    // $useStd =  $db->query("SELECT 
-    //                               `Username`
-    //                       FROM `tb_user`");
+    if (count($query_user) > 0) {
+      foreach ($query_user as $list_result) {
+        if (count($list_result['result']) > 0) {
+          $insertStatus[] = $db->query("INSERT INTO `tb_checked`
+          (
+          `Std_No`,
+          `Schedule_ID`,
+          `Class_ID`,
+          `Composite_ID`
+          )
+          VALUES
+          (
+          '" . $list_result['result'][0]['User_ID'] . "',
+          '" . $rawData['Schedule_ID'] . "',
+          '" . $rawData['Class_ID'] . "',
+          '" . @$rawData['Composite_ID'] . "'
+          );");
+        }
+      }
+    }
 
-
-    // $student = $db->query("SELECT 
-    //                               `Std_No`
-    //                         FROM `tb_student` 
-    //                         LEFT JOIN `Username`
-    //                         ON `tb_student`.`Std_ID` = `tb_user`.`Std_ID`
-    //                         WHERE `tb_user`.`Username` = '" . $rawData['name'] . "'");
-
-
-    $query = $db->query("INSERT INTO `tb_check`
-      (
-      `Status_ID`,
-      `Date`,
-      `Schedule_ID`,
-      `Std_No`
-      )
-      VALUES
-      (
-      '1',
-      '2021-05-28',
-      '" . $rawData['Schedule_ID'] . "',
-      '" . $rawData['name'] . "'
-      );");
-
-
-
-
-    // WHERE '" . $stdNo . "' = '" . $student . "'
+    $query =  $db->query(
+      "SELECT * FROM `tb_checked`
+      LEFT JOIN `tb_user`
+      ON `tb_checked`.`Std_No` = `tb_user`.`User_ID`
+      WHERE `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+      AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      AND `tb_checked`.`Date` = CURRENT_DATE()
+      "
+    );
 
     $response->getBody()->write(\json_encode($query));
     return $response;
