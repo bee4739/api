@@ -55,14 +55,16 @@ class CheckName
           `Std_No`,
           `Schedule_ID`,
           `Class_ID`,
-          `Composite_ID`
+          `Composite_ID`,
+          `Status`
           )
           VALUES
           (
           '" . $list_result['result'][0]['User_ID'] . "',
           '" . $rawData['Schedule_ID'] . "',
           '" . $rawData['Class_ID'] . "',
-          '" . @$rawData['Composite_ID'] . "'
+          '" . @$rawData['Composite_ID'] . "',
+          'ปกติ'
           );");
         }
       }

@@ -34,6 +34,7 @@ $app->post('/dropdownSubSchedule', \Controller\InsertScheduleAttend::class . ":d
 $app->post('/insertScheduleAttend', \Controller\InsertScheduleAttend::class . ":insertSchedule");
 $app->post('/delScheduleAttend', \Controller\InsertScheduleAttend::class . ":delScheduleAttend");
 $app->post('/editScheduleAttend', \Controller\InsertScheduleAttend::class . ":editScheduleAttend");
+$app->post('/insertCompensate', \Controller\InsertScheduleAttend::class . ":insertCompensate");
 
 $app->post('/getDay', \Controller\Day::class . ":getDay");
 

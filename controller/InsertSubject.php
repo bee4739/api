@@ -36,7 +36,8 @@ class InsertSubject
   {
     $db = new \Tools\Database();
     $query = $db->query(
-      "SELECT * FROM `tb_subject`"
+      "SELECT * FROM `tb_subject`
+      ORDER BY 	Subject_ID"
     );
     //output
     $response->getBody()->write(\json_encode($query));

@@ -71,4 +71,29 @@ class InsertScheduleAttend
     $response->getBody()->write(\json_encode($query));
     return $response;
   }
+
+  public function insertCompensate(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $query = $db->query("INSERT INTO `tb_schedule_composate` (
+        Date_Composate,
+        Date_Normal,
+        Day_Composate,
+        Start_Time_Composate,
+        End_Time_Composate,
+        Schedule_ID
+        )
+        VALUES (
+        '" . $rawData['Date_Composate'] . "',
+        '" . $rawData['Date_Normal'] . "',
+        '" . $rawData['Day_Composate'] . "',
+        '" . $rawData['Start_Time_Composate'] . "',
+        '" . $rawData['End_Time_Composate'] . "',
+        '" . $rawData['Schedule_ID'] . "'
+        );");
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
 }
