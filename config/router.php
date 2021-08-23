@@ -48,3 +48,4 @@ $app->post('/getStudent', \Controller\StudyGroupStudent::class . ":getStudent");
 
 $app->post('/getNameStudent', \Controller\CheckName::class . ":getNameStudent");
 $app->post('/checkName', \Controller\CheckName::class . ":checkName");
+$app->post('/gettime', \Controller\CheckName::class . ":gettime");
