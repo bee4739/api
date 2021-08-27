@@ -93,9 +93,35 @@ class CheckName
     $rawData = json_decode(file_get_contents('php://input'), true);
 
     $query = $db->query(
-      "SELECT Start_Time,`End_Time` FROM tb_schedule
-      WHERE Class_ID = '" . $rawData['Class_ID'] . "' AND
-      Schedule_ID = '" . $rawData['Schedule_ID'] . "'
+      "SELECT Start_Time, `End_Time`, `Schedule_ID`, `Class_ID`
+        FROM tb_schedule
+        WHERE Class_ID = '" . $rawData['Class_ID'] . "' 
+        AND Schedule_ID = '" . $rawData['Schedule_ID'] . "'
+      "
+    );
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function getSummarySub(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+
+    $query = $db->query(
+      "SELECT
+        tb_subject.`Subject_ID`,
+        tb_subject.`Subject_NameTH`,
+        tb_class.`Group_Study`,
+        tb_schedule.`Subject_Type`
+      FROM tb_schedule 
+      LEFT JOIN tb_class 
+      ON tb_schedule.`Class_ID` = tb_class.`Class_ID` 
+      LEFT JOIN tb_subject 
+      ON tb_class.`Subject_PK` = tb_subject.`Subject_PK`
+      WHERE tb_schedule.`Class_ID` = '" . $rawData['Class_ID'] . "' 
+      AND tb_schedule.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
       "
     );
 

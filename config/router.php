@@ -45,7 +45,9 @@ $app->post('/delImageinformation', \Controller\UploadImage::class . ":delImagein
 $app->post('/getStudyGroupStudent', \Controller\StudyGroupStudent::class . ":getStudyGroupStudent");
 $app->post('/insertStudyGroupStudent', \Controller\StudyGroupStudent::class . ":insertStudyGroupStudent");
 $app->post('/getStudent', \Controller\StudyGroupStudent::class . ":getStudent");
+$app->post('/getHistoryCheck', \Controller\StudyGroupStudent::class . ":getHistoryCheck");
 
 $app->post('/getNameStudent', \Controller\CheckName::class . ":getNameStudent");
 $app->post('/checkName', \Controller\CheckName::class . ":checkName");
 $app->post('/gettime', \Controller\CheckName::class . ":gettime");
+$app->post('/getSummarySub', \Controller\CheckName::class . ":getSummarySub");
