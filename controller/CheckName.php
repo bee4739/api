@@ -26,7 +26,8 @@ class CheckName
       AND tb_checked.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
       AND tb_checked.`Date` = '" . date("Y-m-d") . "'
       
-      WHERE tb_student.`Class_ID` = '" . $rawData['Class_ID'] . "'"
+      WHERE tb_student.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      ORDER BY `tb_user`.`Std_ID`"
     );
 
     $response->getBody()->write(\json_encode($query));
@@ -122,6 +123,47 @@ class CheckName
       ON tb_class.`Subject_PK` = tb_subject.`Subject_PK`
       WHERE tb_schedule.`Class_ID` = '" . $rawData['Class_ID'] . "' 
       AND tb_schedule.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+      "
+    );
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function getSummary(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    // $a =  "IF(`tb_checked`.`Status` IS NULL, " - ", `tb_checked`.`Status`) AS 'Status',
+    //       IF(`tb_checked`.`Time` IS NULL, " - ", `tb_checked`.`Time`) AS 'Time'";
+    $query = $db->query(
+      "SELECT 	`tb_student`.`Std_ID`, 
+                `tb_student`.`Std_Title`,
+                `tb_student`.`Std_FirstName`, 
+                `tb_student`.`Std_LastName`,
+                `tb_checked`.`Status`,
+                `tb_checked`.`Time`
+      FROM `tb_student` 
+      LEFT JOIN `tb_checked`
+      ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
+      AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
+      WHERE `tb_checked`.`Status` IS NULL
+      AND `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      UNION
+      SELECT 	  `tb_student`.`Std_ID`, 
+                `tb_student`.`Std_Title`,
+                `tb_student`.`Std_FirstName`, 
+                `tb_student`.`Std_LastName`,
+                `tb_checked`.`Status`,
+                `tb_checked`.`Time`
+      FROM `tb_student` 
+      LEFT JOIN `tb_checked`
+      ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
+      AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
+      WHERE `tb_checked`.`Status` IS NOT NULL
+      AND `tb_checked`.`Date` = '2021-08-28'
+      AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      ORDER BY  `Std_ID`
       "
     );
 

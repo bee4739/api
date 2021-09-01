@@ -120,8 +120,9 @@ class DropdownStudyGroup
     $rawData = json_decode(file_get_contents('php://input'), true);
 
     $query = $db->query(
-      "SELECT `Std_No`, `Std_ID`, `Std_FirstName`, `Std_LastName`, `Class_ID` FROM `tb_student`
-       WHERE `Class_ID` = '" . $rawData['Class_ID'] . "'"
+      "SELECT `Std_No`, `Std_ID`, Std_Title, `Std_FirstName`, `Std_LastName`, `Class_ID` FROM `tb_student`
+       WHERE `Class_ID` = '" . $rawData['Class_ID'] . "'
+       ORDER BY `Std_ID`"
     );
 
     // WHERE `Class_ID` = '" . $rawData['Class_ID'] . "'

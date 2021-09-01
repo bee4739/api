@@ -16,6 +16,7 @@ class StudyGroupStudent
       (
       `Std_No`,
       `Std_ID`,
+      `Std_Title`,
       `Std_FirstName`,
       `Std_LastName`,
       `Class_ID`
@@ -24,6 +25,7 @@ class StudyGroupStudent
       (
       '" . $rawData['User_ID'] . "',
       '" . $rawData['Std_ID'] . "',
+      '" . $rawData['Title'] . "',
       '" . $rawData['FirstName'] . "',
       '" . $rawData['LastName'] . "',
       '" . $rawData['Study_Group'] . "'
@@ -40,7 +42,7 @@ class StudyGroupStudent
       "SELECT  `Class_ID`, `Subject_ID`, `Subject_NameTH`, `Group_Study`, `Pass_Group`
       FROM `tb_class`
       LEFT JOIN `tb_subject`
-      ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK`;"
+      ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK`"
     );
 
     $response->getBody()->write(\json_encode($query));
@@ -76,7 +78,8 @@ class StudyGroupStudent
       ON `tb_checked`.`Class_ID` = `tb_student`.`Class_ID`
       AND `tb_checked`.`Std_No` = `tb_student`.`Std_No` 
       WHERE `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
-      AND `tb_checked`.`Std_No` = '" . $rawData['User_ID'] . "'"
+      AND `tb_checked`.`Std_No` = '" . $rawData['User_ID'] . "'
+      ORDER BY `Time` "
     );
 
     $response->getBody()->write(\json_encode($query));

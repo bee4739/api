@@ -51,3 +51,6 @@ $app->post('/getNameStudent', \Controller\CheckName::class . ":getNameStudent");
 $app->post('/checkName', \Controller\CheckName::class . ":checkName");
 $app->post('/gettime', \Controller\CheckName::class . ":gettime");
 $app->post('/getSummarySub', \Controller\CheckName::class . ":getSummarySub");
+$app->post('/getSummary', \Controller\CheckName::class . ":getSummary");
+
+$app->post('/insertregister', \Controller\Register::class . ":insertregister");
