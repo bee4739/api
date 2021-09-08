@@ -161,9 +161,35 @@ class CheckName
       ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
       AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
       WHERE `tb_checked`.`Status` IS NOT NULL
-      AND `tb_checked`.`Date` = '2021-08-28'
+      AND `tb_checked`.`Date` =  CURRENT_DATE()
       AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
       ORDER BY  `Std_ID`
+      "
+    );
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function getTimeCheck(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+
+    $query = $db->query(
+      "SELECT 	`tb_user`.`Username`,
+                `tb_checked`.`Std_No`, 
+                `tb_checked`.`Schedule_ID`, 
+                `tb_checked`.`Class_ID`, 
+                `tb_checked`.`Time` 
+      FROM `tb_checked`
+  
+      LEFT JOIN `tb_user`
+      ON `tb_checked`.`Std_No` = `tb_user`.`User_ID`
+  
+      WHERE `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+      AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      AND `tb_checked`.`Date` = CURRENT_DATE()
       "
     );
 
