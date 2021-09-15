@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 03:57 PM
+-- Generation Time: Sep 12, 2021 at 06:21 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -20,21 +20,116 @@ SET time_zone = "+00:00";
 --
 -- Database: `fpc`
 --
+CREATE DATABASE IF NOT EXISTS `fpc` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `fpc`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_check`
+-- Table structure for table `tb_checked`
 --
 
-CREATE TABLE `tb_check` (
-  `Check_ID` int(5) NOT NULL COMMENT 'รหัสเช็คชื่อ',
-  `Status_ID` int(5) NOT NULL COMMENT 'รหัสสถานะ',
-  `Compensate_ID` int(5) NOT NULL COMMENT 'รหัสการสอนชดเชย',
-  `Date` varchar(20) NOT NULL COMMENT 'วันที่',
-  `Schedule_ID` int(5) NOT NULL COMMENT 'รหัสตารางสอน',
-  `Std_No` int(5) NOT NULL COMMENT 'รหัสนักศึกษา'
+CREATE TABLE `tb_checked` (
+  `Std_No` int(5) NOT NULL,
+  `Schedule_ID` int(5) DEFAULT NULL,
+  `Class_ID` int(5) NOT NULL,
+  `Composite_ID` int(5) DEFAULT NULL,
+  `Status` varchar(20) DEFAULT NULL,
+  `Time` datetime NOT NULL DEFAULT current_timestamp(),
+  `Date` date GENERATED ALWAYS AS (cast(`Time` as date)) VIRTUAL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_checked`
+--
+
+INSERT INTO `tb_checked` (`Std_No`, `Schedule_ID`, `Class_ID`, `Composite_ID`, `Status`, `Time`) VALUES
+(3, 18, 1, 0, 'ปกติ', '2021-09-01 01:57:47'),
+(3, 18, 1, 0, 'สาย', '2021-09-02 16:35:47'),
+(3, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:13'),
+(3, 18, 1, 0, 'สาย', '2021-09-07 18:44:53'),
+(3, 18, 1, 0, 'สาย', '2021-09-08 16:38:11'),
+(3, 18, 1, 0, 'สาย', '2021-09-12 20:51:31'),
+(3, 20, 2, 0, 'สาย', '2021-09-12 21:39:47'),
+(6, 18, 1, 0, 'สาย', '2021-09-02 16:39:27'),
+(6, 18, 1, 0, 'สาย', '2021-09-03 15:30:59'),
+(6, 18, 1, 0, 'สาย', '2021-09-05 19:13:59'),
+(6, 20, 2, 0, 'ปกติ', '2021-09-12 21:48:56'),
+(7, 18, 1, 0, 'ปกติ', '2021-09-01 15:23:25'),
+(7, 18, 1, 0, 'สาย', '2021-09-02 16:33:32'),
+(7, 18, 1, 0, 'สาย', '2021-09-03 15:30:52'),
+(7, 18, 1, 0, 'สาย', '2021-09-08 16:38:07'),
+(9, 18, 1, 0, 'สาย', '2021-09-02 16:53:56'),
+(9, 18, 1, 0, 'สาย', '2021-09-03 16:41:11'),
+(9, 18, 1, 0, 'สาย', '2021-09-05 19:06:27'),
+(9, 18, 1, 0, 'สาย', '2021-09-07 18:50:05'),
+(9, 18, 1, 0, 'สาย', '2021-09-08 16:37:59'),
+(9, 18, 1, 0, 'สาย', '2021-09-12 20:53:52'),
+(11, 18, 1, 0, 'สาย', '2021-09-02 16:37:44'),
+(11, 18, 1, 0, 'สาย', '2021-09-03 15:31:38'),
+(11, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:28'),
+(11, 18, 1, 0, 'สาย', '2021-09-08 16:38:09'),
+(11, 18, 1, 0, 'สาย', '2021-09-12 20:51:22'),
+(12, 18, 1, 0, 'สาย', '2021-09-01 13:30:02'),
+(12, 18, 1, 0, 'สาย', '2021-09-02 16:33:00'),
+(13, 18, 1, 0, 'สาย', '2021-09-01 14:39:20'),
+(13, 18, 1, 0, 'สาย', '2021-09-02 16:33:37'),
+(14, 18, 1, 0, 'ปกติ', '2021-09-01 15:17:18'),
+(14, 18, 1, 0, 'สาย', '2021-09-02 16:33:26'),
+(14, 18, 1, 0, 'ปกติ', '2021-09-05 19:03:02'),
+(18, 18, 1, 0, 'สาย', '2021-09-02 16:33:57'),
+(18, 18, 1, 0, 'สาย', '2021-09-08 16:38:58'),
+(18, 18, 1, 0, 'สาย', '2021-09-12 20:57:52'),
+(19, 18, 1, 0, 'สาย', '2021-09-05 19:34:11'),
+(20, 18, 1, 0, 'สาย', '2021-09-02 16:34:00'),
+(20, 18, 1, 0, 'สาย', '2021-09-03 15:31:20'),
+(20, 18, 1, 0, 'สาย', '2021-09-05 19:05:06'),
+(20, 18, 1, 0, 'สาย', '2021-09-08 16:38:21'),
+(20, 18, 1, 0, 'สาย', '2021-09-12 20:51:57'),
+(21, 18, 1, 0, 'สาย', '2021-09-02 16:32:58'),
+(21, 18, 1, 0, 'สาย', '2021-09-03 15:31:28'),
+(21, 18, 1, 0, 'สาย', '2021-09-05 19:44:43'),
+(21, 18, 1, 0, 'สาย', '2021-09-08 16:38:12'),
+(21, 18, 1, 0, 'สาย', '2021-09-12 20:53:04'),
+(22, 18, 1, 0, 'สาย', '2021-09-02 16:33:16'),
+(22, 18, 1, 0, 'สาย', '2021-09-03 15:31:25'),
+(23, 18, 1, 0, 'สาย', '2021-09-02 16:33:30'),
+(24, 18, 1, 0, 'สาย', '2021-09-03 16:40:46'),
+(24, 18, 1, 0, 'สาย', '2021-09-05 19:05:11'),
+(25, 18, 1, 0, 'สาย', '2021-09-02 16:34:05'),
+(25, 18, 1, 0, 'สาย', '2021-09-03 16:40:43'),
+(25, 18, 1, 0, 'สาย', '2021-09-12 20:52:17'),
+(26, 18, 1, 0, 'สาย', '2021-09-02 16:38:57'),
+(26, 18, 1, 0, 'สาย', '2021-09-05 19:05:08'),
+(26, 18, 1, 0, 'สาย', '2021-09-07 18:50:27'),
+(26, 18, 1, 0, 'สาย', '2021-09-12 20:51:48'),
+(27, 18, 1, 0, 'สาย', '2021-09-02 16:41:46'),
+(27, 18, 1, 0, 'สาย', '2021-09-03 15:30:54'),
+(27, 18, 1, 0, 'สาย', '2021-09-05 19:13:53'),
+(27, 18, 1, 0, 'สาย', '2021-09-08 16:39:39'),
+(28, 18, 1, 0, 'สาย', '2021-09-02 16:33:28'),
+(29, 18, 1, 0, 'สาย', '2021-09-02 16:32:54'),
+(29, 18, 1, 0, 'สาย', '2021-09-03 16:38:41'),
+(29, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:20'),
+(29, 18, 1, 0, 'สาย', '2021-09-12 20:51:34'),
+(30, 18, 1, 0, 'สาย', '2021-09-02 17:41:21'),
+(30, 18, 1, 0, 'สาย', '2021-09-03 11:09:23'),
+(30, 18, 1, 0, 'สาย', '2021-09-05 19:05:17'),
+(30, 18, 1, 0, 'สาย', '2021-09-07 18:50:37'),
+(31, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:45'),
+(32, 18, 1, 0, 'สาย', '2021-09-02 18:07:13'),
+(32, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:29'),
+(33, 18, 1, 0, 'สาย', '2021-09-03 15:31:02'),
+(33, 18, 1, 0, 'สาย', '2021-09-12 20:51:34'),
+(34, 18, 1, 0, 'สาย', '2021-09-05 19:05:08'),
+(35, 18, 1, 0, 'สาย', '2021-09-03 11:09:28'),
+(35, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:51'),
+(38, 18, 1, 0, 'ปกติ', '2021-09-05 19:03:19'),
+(38, 18, 1, 0, 'สาย', '2021-09-07 18:51:45'),
+(38, 18, 1, 0, 'สาย', '2021-09-08 16:38:44'),
+(38, 18, 1, 0, 'สาย', '2021-09-12 20:54:23'),
+(39, 18, 1, 0, 'ปกติ', '2021-09-05 19:02:42'),
+(40, 18, 1, 0, 'สาย', '2021-09-05 19:05:12');
 
 -- --------------------------------------------------------
 
@@ -56,9 +151,12 @@ CREATE TABLE `tb_class` (
 --
 
 INSERT INTO `tb_class` (`Class_ID`, `Subject_PK`, `Group_Study`, `Pass_Group`, `Year_ID`, `User_ID`) VALUES
-(11, 10, 'CPE.63231', '63231', 25, 2),
-(13, 11, 'CPE.63231', '63231', 25, 2),
-(14, 6, 'CPE.60231', '60231', 25, 2);
+(1, 1, 'CPE.62231', '62231', 1, 2),
+(2, 14, 'CPE.62231', '62231', 1, 2),
+(3, 10, 'CPE.62231', '62231', 1, 2),
+(4, 3, 'CPE.63231', '63231', 1, 2),
+(5, 4, 'CPE.63231', '63231', 1, 2),
+(6, 44, 'CPE.63231', '63231', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -103,9 +201,9 @@ CREATE TABLE `tb_schedule` (
 --
 
 INSERT INTO `tb_schedule` (`Schedule_ID`, `Day`, `Start_Time`, `End_Time`, `Class_ID`, `Subject_Type`) VALUES
-(11, '1', '09:00', '12:00', 14, 'ทฤษฎี'),
-(13, '4', '09:00', '12:00', 13, 'ทฤษฎี'),
-(14, '4', '01:00', '16:00', 11, 'ปฏิบัติ');
+(18, '3', '11:00', '23:00', 1, 'ทฤษฎี'),
+(20, '0', '20:00', '23:59', 2, 'ทฤษฎี'),
+(21, '0', '21:00', '23:59', 3, 'ปฏิบัติ');
 
 -- --------------------------------------------------------
 
@@ -117,11 +215,10 @@ CREATE TABLE `tb_schedule_composate` (
   `Composite_ID` int(5) NOT NULL COMMENT 'รหัสการสอนชดเชย',
   `Date_Composate` varchar(20) NOT NULL COMMENT 'วันที่สอนชดเชย',
   `Date_Normal` varchar(20) NOT NULL COMMENT 'วันที่เรียนปกติ',
-  `Day` varchar(20) NOT NULL COMMENT 'วัน',
-  `Start_Time` varchar(20) NOT NULL COMMENT 'เวลาเริ่มต้น',
-  `End_Time` varchar(20) NOT NULL COMMENT 'เวลาสิ้นสุด',
-  `Schedule_ID` int(5) NOT NULL COMMENT 'รหัสตารางสอน',
-  `User_ID` int(5) NOT NULL COMMENT 'รหัสผู้ใช้งาน'
+  `Day_Composate` varchar(20) NOT NULL COMMENT 'วัน',
+  `Start_Time_Composate` varchar(20) NOT NULL COMMENT 'เวลาเริ่มต้น',
+  `End_Time_Composate` varchar(20) NOT NULL COMMENT 'เวลาสิ้นสุด',
+  `Schedule_ID` int(5) NOT NULL COMMENT 'รหัสตารางสอน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -135,6 +232,15 @@ CREATE TABLE `tb_status` (
   `Status_Name` varchar(15) NOT NULL COMMENT 'ชื่อสถานะ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tb_status`
+--
+
+INSERT INTO `tb_status` (`Status_ID`, `Status_Name`) VALUES
+(1, 'ขาด'),
+(2, 'ลา'),
+(3, 'สาย');
+
 -- --------------------------------------------------------
 
 --
@@ -144,6 +250,7 @@ CREATE TABLE `tb_status` (
 CREATE TABLE `tb_student` (
   `Std_No` int(5) NOT NULL,
   `Std_ID` varchar(13) NOT NULL COMMENT 'รหัสนักศึกษา',
+  `Std_Title` varchar(20) NOT NULL,
   `Std_FirstName` varchar(255) NOT NULL COMMENT 'ชื่อนักศึกษา',
   `Std_LastName` varchar(255) NOT NULL COMMENT 'นามสกุลนักศึกษา',
   `Class_ID` int(5) NOT NULL COMMENT 'ชื่อกลุ่มเรียน'
@@ -153,10 +260,42 @@ CREATE TABLE `tb_student` (
 -- Dumping data for table `tb_student`
 --
 
-INSERT INTO `tb_student` (`Std_No`, `Std_ID`, `Std_FirstName`, `Std_LastName`, `Class_ID`) VALUES
-(3, '60172310128-4', 'Rattika', 'Noynaola', 11),
-(3, '60172310128-4', 'Rattika', 'Noynaola', 13),
-(3, '60172310128-4', 'Rattika', 'Noynaola', 14);
+INSERT INTO `tb_student` (`Std_No`, `Std_ID`, `Std_Title`, `Std_FirstName`, `Std_LastName`, `Class_ID`) VALUES
+(3, '60172310128-4', 'นางสาว', 'รัตติกา', 'น้อยเนาลา', 1),
+(3, '60172310128-4', 'นางสาว', 'รัตติกา', 'น้อยเนาลา', 2),
+(3, '60172310128-4', 'นางสาว', 'รัตติกา', 'น้อยเนาลา', 3),
+(6, '60172310130-2', 'นางสาว', 'สุริวิภา', 'ปั่นสันเทียะ', 1),
+(6, '60172310130-2', 'นางสาว', 'สุริวิภา', 'ปั่นสันเทียะ', 2),
+(7, '60172310129-4', 'นางสาว', 'สุมิลตา', 'สิทธิ์สันเทียะ', 1),
+(9, '60172310131-2', 'นาย', 'จอมพล', 'กระจ่างโพธิ์', 1),
+(10, '60172310185-1', 'นาย', 'จารุกิตต์', 'บุญจันทร์', 1),
+(11, '60172310006-9', 'นาย', 'ณัฐสิทธิ์', 'ผัดตุ่น', 1),
+(12, '60172310311-4', 'นาย', 'เนติพงศ์', 'สุนันทิพย์', 1),
+(13, '59172310204-9', 'นาย', 'กิตติภณ', 'รักษาคุณ', 1),
+(14, '61172310227-1', 'นาย', 'ธนากร​', 'จีน​วงศ์', 1),
+(18, '60152310034-7', 'นางสาว', 'จิราพร', 'พุดขุนทด', 1),
+(19, '58172110027-3', 'นาย', 'อนันทวัฒน์', 'หึกขุนทด', 1),
+(20, '61172310025-3', 'นางสาว', 'กนกอร​', 'หอย​ตะคุ​', 1),
+(21, '59172310184-3', 'นาย', 'อนุชิต', 'สายศร', 1),
+(22, '59172310009-1', 'นาย', 'วรพล', 'อุไรพรรณ', 1),
+(23, '60172310322-2', 'นางสาว', 'วีร์นันทิยา', 'ทรัพย์มาก', 1),
+(24, '61172310101-6', 'นาย', 'ธีรวุฒิ', 'ขันพันธ์', 1),
+(25, '60172310133-2', 'นาย', 'วันชัย', 'รัตนรักษ์', 1),
+(26, '60172310215-5', 'นาย', 'เมธา', 'ประทุมภา', 1),
+(27, '61172310280-8', 'นางสาว', 'เบญจพร', 'กิตติวิเชียรชัย', 1),
+(28, '61172310331-8', 'นาย', 'สถาพร', 'มณีบุญ', 1),
+(29, '62172310127-0', 'นาย', 'กันต์ธร', 'วงษ์โสมะ', 1),
+(30, '59172310003-1', 'นาย', 'ธีรโชฒ', 'ศรีริ', 1),
+(31, '60172310022-5', 'นาย', 'ศรายุทธ', 'ไกรษร', 1),
+(32, '60172310309-6', 'นาย', 'คมอิทธิเบศ', 'แมบจันทึก', 1),
+(33, '62172310386-5', 'นางสาว', 'ญาณิศา', 'แต่งตั้ง', 1),
+(34, '62182110010-5', 'นาย', 'วัชระ', 'ซ้ายกระโทก', 1),
+(35, '60172310325-2', 'นาย', 'วันชัย', 'สีหะวงษ์', 1),
+(36, '60172310305-6', 'นาย', 'นนทวัฒน์', 'ป้อมสนาม', 1),
+(37, '59172310032-5', 'นาย', 'กฤษดา', 'คลายทุกข์', 1),
+(38, '60172310194-9', 'นาย', 'พิชญากร', 'ศรีเนาวรัตน์', 1),
+(39, '611723104249', 'นาย', 'อารันต์', 'ความสวัสดิ์', 1),
+(40, '60152310180-5', 'นางสาว', 'นฤมล', 'ศรีบุรี', 1);
 
 -- --------------------------------------------------------
 
@@ -178,14 +317,47 @@ CREATE TABLE `tb_subject` (
 --
 
 INSERT INTO `tb_subject` (`Subject_PK`, `Subject_ID`, `Subject_NameTH`, `Subject_NameEN`, `Subject_Theory`, `Subject_Practice`) VALUES
-(3, '04-061-102', 'ปฏิบัติการอุปกรณ์อิเล็กทรอนิกส์สำหรับวิศวกรรมคอมพิวเตอร์', 'Electronic Devices for Computer Engineering Labora', 0, 3),
-(6, '04-061-310', 'โครงงานวิศวกรรมคอมพิวเตอร์ 1', 'Computer Engineering Project 1', 3, 0),
-(7, '04-063-405', 'การรู้ภาพของคอมพิวเตอร์', 'Computer Vision', 3, 0),
-(8, '04-061-301', 'การออกแบบระบบดิจิทัล', 'Digital System Design', 3, 0),
-(9, '04-061-302', 'ปฏิบัติการออกแบบระบบดิจิทัล', 'Digital System Design Laboratory', 0, 3),
-(10, '04-061-308', 'ปฏิบัติการไมโครคอนโทรลเลอร์', 'Microcontroller Laboratory', 0, 3),
-(11, '04-061-307', 'ไมโครคอนโทรลเลอร์', 'Microcontroller', 3, 0),
-(14, '04-063-403', 'คอมพิวเตอร์กราฟฟิก', 'Computer Graphics', 3, 0);
+(1, '04-061-404', 'โครงงานวิศวกรรมคอมพิวเตอร์ 2', 'Computer Engineering Project 2', 3, 0),
+(2, '04-060-101', 'การโปรแกรมคอมพิวเตอร์', 'Computer Programming', 3, 0),
+(3, '04-061-101', 'อุปกรณ์อิเล็กทรอนิกส์สำหรับวิศวกรรมคอมพิวเตอร์', 'Electronic Devices for Computer Engineering', 2, 0),
+(4, '04-061-102', 'ปฏิบัติการอุปกรณ์อิเล็กทรอนิกส์สำหรับวิศวกรรมคอมพิวเตอร์', 'Electronic Devices for Computer Engineering Laboratory', 0, 3),
+(5, '04-061-204', 'ปฏิบัติการวงจรดิจิทัลและลอจิก', 'Digital and Logic Circuits Laboratory', 0, 3),
+(6, '04-061-203', 'วงจรดิจิทัลและลอจิก', 'Digital and Logic Circuits', 2, 0),
+(7, '04-061-201', 'สถิติสำหรับวิศวกรรมคอมพิวเตอร์', 'Statistics for Computer Engineering', 3, 0),
+(9, '04-061-208', 'ปฏิบัติการวงจรอิเล็กทรอนิกส์สำหรับวิศวกรรมคอมพิวเตอร์', 'Electronic Circuits for Computer Engineering Laboratory', 0, 3),
+(10, '04-061-212', 'ปฏิบัติการโครงสร้างข้อมูลและอัลกอริทึม', 'Data Structures and Algorithms Laboratory', 0, 3),
+(11, '04-061-214', 'ปฏิบัติการโปรแกรมเชิงวัตถุ', 'Object-Oriented Programming Laboratory', 0, 3),
+(12, '04-061-207', 'วงจรอิเล็กทรอนิกส์สำหรับวิศวกรรมคอมพิวเตอร์', 'Electronic Circuits for Computer Engineering', 2, 0),
+(13, '04-061-209', 'สถาปัตยกรรมคอมพิวเตอร์และระบบ 1', 'Computer Architecture and Organization 1', 2, 0),
+(14, '04-061-211', 'โครงสร้างข้อมูลและอัลกอริทึม', 'Data Structures and Algorithms', 3, 0),
+(15, '04-061-213', 'การโปรแกรมเชิงวัตถุ', 'Object-Oriented Programming', 2, 0),
+(16, '04-061-202', 'คณิตศาสตร์ดิสครีตสำหรับวิศวกรรม', 'Discrete Mathematics for Engineering', 3, 0),
+(18, '04-061-206', 'ปฏิบัติการวัดและเครื่องมือวัดสัญญาณดิจิทัล', 'Measurement and Digital Signal Instrument Laboratory', 0, 3),
+(19, '04-061-304', 'ปฏิบัติการระบบฐานข้อมูล', 'Database System Laboratory', 2, 0),
+(20, '04-061-205', 'การวัดและเครื่องมือวัดสัญญาณดิจิทัล', 'Measurement and Digital Signal Instrument', 2, 0),
+(21, '04-061-210', 'สถาปัตยกรรมคอมพิวเตอร์และระบบ 2', 'Computer Architecture and Organization 2', 2, 0),
+(22, '04-061-303', 'ระบบฐานข้อมูล', 'Database System', 2, 0),
+(23, '04-061-215', 'การสื่อสารข้อมูล', 'Data Communication', 3, 0),
+(24, '04-063-407', 'เหมืองข้อมูล', 'Data Mining', 3, 0),
+(25, '04-061-309', 'ระบบปฏิบัติการ', 'Operating System', 3, 0),
+(26, '04-062-403', 'การออกแบบวงจรใหญ่มาก', 'VLSI Designs', 3, 0),
+(27, '04-063-406', 'ปัญญาประดิษฐ์', 'Artificial Intelligence', 3, 0),
+(28, '04-061-302', 'ปฏิบัติการออกแบบระบบดิจิทัล', 'Digital System Design Laboratory', 0, 3),
+(29, '04-061-306', 'ปฏิบัติการเครือข่ายคอมพิวเตอร์', 'Computer Network Laboratory', 0, 3),
+(30, '04-061-308', 'ปฏิบัติการไมโครคอนโทรลเลอร์', 'Microcontroller Laboratory', 0, 3),
+(31, '04-061-310', 'โครงงานวิศวกรรมคอมพิวเตอร์ 1', 'Computer Engineering Project 1', 2, 0),
+(32, '04-061-301', 'การออกแบบระบบดิจิทัล', 'Digital System Design', 2, 0),
+(33, '04-061-305', 'เครือข่ายคอมพิวเตอร์', 'Computer Network', 2, 0),
+(34, '04-061-307', 'ไมโครคอนโทรลเลอร์', 'Microcontroller', 2, 0),
+(35, '04-061-401', 'วิศวกรรมซอฟต์แวร์', 'Software Engineering', 3, 0),
+(36, '04-063-405', 'การรู้ภาพของคอมพิวเตอร์', 'Computer Vision', 3, 0),
+(37, '04-063-402', 'ปฏิบัติการพัฒนาโปรแกรมบนเว็บ', 'Web Programming Laboratory', 0, 3),
+(38, '04-064-402', 'ปฏิบัติการรักษาความปลอดภัยคอมพิวเตอร์', 'Computer Security Laboratory', 0, 3),
+(39, '04-031-308', 'การเตรียมความพร้อมก่อนสหกิจศึกษาสำหรับวิศวกรรม', 'Pre-Cooperative Education for Engineering', 2, 0),
+(40, '04-063-401', 'การพัฒนาโปรแกรมบนเว็บ', 'Web Programming', 2, 0),
+(41, '04-064-401', 'การรักษาความปลอดภัยคอมพิวเตอร์', 'Computer Security', 2, 0),
+(42, '04-063-403', 'คอมพิวเตอร์กราฟฟิก', 'Computer Graphics', 3, 0),
+(44, '04-020-202', 'วงจรไฟฟ้า 1', 'Electric Circuits 1', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -197,8 +369,12 @@ CREATE TABLE `tb_user` (
   `User_ID` int(5) NOT NULL COMMENT 'รหัสผู้ใช้งาน',
   `Username` varchar(50) NOT NULL COMMENT 'ชื่อผู้ใช้งาน',
   `Std_ID` varchar(13) DEFAULT NULL COMMENT 'รหัสนักศึกษา',
-  `FirstName` varchar(255) NOT NULL COMMENT 'ชื่อ',
-  `LastName` varchar(255) NOT NULL COMMENT 'นามสกุล ',
+  `Title` varchar(20) DEFAULT NULL COMMENT 'คำนำหน้าชื่อภาษาไทย',
+  `FirstName` varchar(255) NOT NULL COMMENT 'ชื่อภาษาไทย',
+  `LastName` varchar(255) NOT NULL COMMENT 'นามสกุลภาษาไทย',
+  `Title_Eng` varchar(20) DEFAULT NULL COMMENT 'คำนำหน้าชื่อภาษาอังกฤษ',
+  `FirstName_Eng` varchar(255) NOT NULL COMMENT 'ชื่อภาษาอังกฤษ',
+  `LastName_Eng` varchar(255) NOT NULL COMMENT 'นามสกุลภาษาอังกฤษ',
   `Role` varchar(50) NOT NULL COMMENT 'สิทธิ์การใช้งาน',
   `User_Password` varchar(255) NOT NULL COMMENT 'รหัสผ่านผู้ใช้งาน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -207,11 +383,41 @@ CREATE TABLE `tb_user` (
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`User_ID`, `Username`, `Std_ID`, `FirstName`, `LastName`, `Role`, `User_Password`) VALUES
-(1, 'admin', '', 'Admin', 'Admin', '0', '1234'),
-(2, 'teacher', '', 'Teacher', 'Teacher', '1', '1234'),
-(3, 'rattika.no', '60172310128-4', 'Rattika', 'Noynaola', '2', '1234'),
-(6, 'surivipa.pa', '60172310130-2', 'Surivipa', 'Pansanthia', '2', '1234');
+INSERT INTO `tb_user` (`User_ID`, `Username`, `Std_ID`, `Title`, `FirstName`, `LastName`, `Title_Eng`, `FirstName_Eng`, `LastName_Eng`, `Role`, `User_Password`) VALUES
+(1, 'admin', '', '', 'ผู้ดูแลระบบ', 'ผู้ดูแลระบบ', '', 'Admin', 'Admin', '0', '1234'),
+(2, 'teacher', '', '', 'อาจารย์', 'อาจารย์', '', 'Teacher', 'Teacher', '1', '1234'),
+(3, 'rattika.no', '60172310128-4', 'นางสาว', 'รัตติกา', 'น้อยเนาลา', 'Miss.', 'Rattika', 'Noynaola', '2', '1234'),
+(6, 'surivipa.pa', '60172310130-2', 'นางสาว', 'สุริวิภา', 'ปั่นสันเทียะ', 'Miss.', 'Surivipa', 'Pansanthia', '2', '1234'),
+(7, 'suminta.si', '60172310129-4', 'นางสาว', 'สุมิลตา', 'สิทธิ์สันเทียะ', 'Miss.', 'Suminta', 'Sitsanthia', '2', '1234'),
+(9, 'jompon.kr', '60172310131-2', 'นาย', 'จอมพล', 'กระจ่างโพธิ์', 'Mr.', 'Jompon', 'Krajangpo', '2', '1234'),
+(10, 'jarukit.bu', '60172310185-1', 'นาย', 'จารุกิตต์', 'บุญจันทร์', 'Mr.', 'Jarukit', 'Bunchan', '2', '1234'),
+(11, 'nuttacit.ph', '60172310006-9', 'นาย', 'ณัฐสิทธิ์', 'ผัดตุ่น', 'Mr.', 'Nuttacit', 'Phattun', '2', '1234'),
+(12, 'naetiphong.su', '60172310311-4', 'นาย', 'เนติพงศ์', 'สุนันทิพย์', 'Mr.', 'Neatiphong', 'Sunantip', '2', '1234'),
+(13, 'kittiphon.ra', '59172310204-9', 'นาย', 'กิตติภณ', 'รักษาคุณ', 'Mr.', 'Kittiphon', 'Raksakhun', '2', '1234'),
+(14, 'thanakorn​.je', '61172310227-1', 'นาย', 'ธนากร​', 'จีน​วงศ์', 'Mr.', 'Thanakorn​', 'Jeenwong', '2', '1234'),
+(18, 'jiraporn.pu', '60152310034-7', 'นางสาว', 'จิราพร', 'พุดขุนทด', 'Miss.', 'Jiraporn', 'Pudkhunthod', '2', '1234'),
+(19, 'anantawad.hu', '58172110027-3', 'นาย', 'อนันทวัฒน์', 'หึกขุนทด', '', 'Anantawad', 'Huekkhuntod', '2', '1234'),
+(20, 'kanokorn.ho', '61172310025-3', 'นางสาว', 'กนกอร​', 'หอย​ตะคุ​', 'Miss.', 'Kanokorn', 'Hoitakhu​', '2', '1234'),
+(21, 'anuchit.sa', '59172310184-3', 'นาย', 'อนุชิต', 'สายศร', 'Mr.', 'Anuchit', 'Saisorn', '2', '1234'),
+(22, 'vorapol.ur', '59172310009-1', 'นาย', 'วรพล', 'อุไรพรรณ', 'Mr.', 'Vorapol', 'Uraipan', '2', '1234'),
+(23, 'veenantiya.su', '60172310322-2', 'นางสาว', 'วีร์นันทิยา ', 'ทรัพย์มาก', 'Miss.', 'Veenantiya', 'Submak', '2', '1234'),
+(24, 'thirawut.kh', '61172310101-6', 'นาย', 'ธีรวุฒิ', 'ขันพันธ์', 'Mr.', 'Thirawut', 'Khanpan', '2', '1234'),
+(25, 'wanchai.ra', '60172310133-2', 'นาย', 'วันชัย', 'รัตนรักษ์', 'Mr.', 'Wanchai', 'Rattanarak', '2', '1234'),
+(26, 'meta.pr', '60172310215-5', 'นาย', 'เมธา', 'ประทุมภา', 'Mr.', 'Meta', 'Pratumpa', '2', '1234'),
+(27, 'benjaporn.ki', '61172310280-8', 'นางสาว', 'เบญจพร', 'กิตติวิเชียรชัย', 'Miss.', 'Benjaporn', 'Kittivichainchai', '2', '1234'),
+(28, 'sathaphorn.ma', '61172310331-8', 'นาย', 'สถาพร', 'มณีบุญ', 'Mr.', 'Sathaphorn', 'Maneeboon', '2', '1234'),
+(29, 'kanthorn.wo', '62172310127-0', 'นาย', 'กันต์ธร', 'วงษ์โสมะ', 'Mr.', 'Kanthorn', 'Wongsoma', '2', '1234'),
+(30, 'thirachot.sr', '59172310003-1', 'นาย', 'ธีรโชฒ', 'ศรีริ', 'Mr.', 'Thirachot', 'Sriri', '2', '1234'),
+(31, 'sarayuth.kr', '60172310022-5', 'นาย', 'ศรายุทธ', 'ไกรษร', 'Mr.', 'Sarayuth', 'Krisorn', '2', '1234'),
+(32, 'komittibate.ma', '60172310309-6', 'นาย', 'คมอิทธิเบศ', 'แมบจันทึก', 'Mr.', 'Komittibate', 'Mabjuntuk', '2', '1234'),
+(33, 'yanisa.ta', '62172310386-5', 'นางสาว', 'ญาณิศา', 'แต่งตั้ง', 'Miss.', 'Yanisa', 'Taengtang', '2', '1234'),
+(34, 'watchara.sa', '62182110010-5', 'นาย', 'วัชระ', 'ซ้ายกระโทก', 'Mr.', 'Watchara', 'Saikrathok', '2', '1234'),
+(35, 'wanchai.se', '60172310325-2', 'นาย', 'วันชัย', 'สีหะวงษ์', 'Mr.', 'Wanchai', 'Seehawong', '2', '1234'),
+(36, 'nontawat.po', '60172310305-6', 'นาย', 'นนทวัฒน์', 'ป้อมสนาม', 'Miss.', 'Nontawat', 'Pomsanam', '2', '1234'),
+(37, 'kridsada.kh', '59172310032-5', 'นาย', 'กฤษดา', 'คลายทุกข์', 'Mr.', 'Kridsada', 'Khlaithuk', '2', '1234'),
+(38, 'phitchayakorn.sr', '60172310194-9', 'นาย', 'พิชญากร', 'ศรีเนาวรัตน์', 'Mr.', 'Phitchayakorn', 'Srinaowarat', '2', '1234'),
+(39, 'arran.kh', '611723104249', 'นาย', 'อารันต์', 'ความสวัสดิ์', 'Mr.', 'Arran', 'Khwamsawat', '2', '1234'),
+(40, 'naruemon.sr', '60152310180-5', 'นางสาว', 'นฤมล', 'ศรีบุรี', 'Miss.', 'Naruemon', 'Sriburi', '2', '1234');
 
 -- --------------------------------------------------------
 
@@ -236,27 +442,29 @@ CREATE TABLE `tb_year` (
 --
 
 INSERT INTO `tb_year` (`Year_ID`, `Year`, `Term`, `Start_SchYear`, `End_SchYear`, `Start_Midterm`, `End_Midterm`, `Start_Final`, `End_Final`) VALUES
-(15, '2560', 'ภาคเรียนที่ 1', '2021-04-01', '2021-04-30', '2021-04-12', '2021-04-16', '2021-04-26', '2021-04-30'),
-(16, '2560', 'ภาคเรียนที่ 2', '2021-04-01', '2021-04-30', '2021-04-12', '2021-04-16', '2021-04-26', '2021-04-30'),
-(23, '2560', 'ภาคฤดูร้อน', '2021-04-08', '2021-04-21', '2021-04-21', '2021-04-16', '2021-04-09', '2021-04-17'),
-(25, '2563', 'ภาคฤดูร้อน', '2021-04-19', '2021-06-09', '2021-05-10', '2021-05-11', '2021-06-07', '2021-06-08');
+(1, '2564', 'ภาคเรียนที่ 1', '2021-06-21', '2021-10-19', '2021-08-14', '2021-08-20', '2021-10-09', '2021-10-18');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tb_check`
+-- Indexes for table `tb_checked`
 --
-ALTER TABLE `tb_check`
-  ADD PRIMARY KEY (`Check_ID`);
+ALTER TABLE `tb_checked`
+  ADD PRIMARY KEY (`Std_No`,`Time`),
+  ADD UNIQUE KEY `Student_ID` (`Std_No`,`Schedule_ID`,`Composite_ID`,`Date`),
+  ADD KEY `Class_ID` (`Class_ID`),
+  ADD KEY `Schedule_ID` (`Schedule_ID`);
 
 --
 -- Indexes for table `tb_class`
 --
 ALTER TABLE `tb_class`
   ADD PRIMARY KEY (`Class_ID`),
-  ADD UNIQUE KEY `Subject_PK` (`Subject_PK`,`Group_Study`);
+  ADD UNIQUE KEY `Subject_PK` (`Subject_PK`,`Group_Study`),
+  ADD KEY `User_ID` (`User_ID`),
+  ADD KEY `Year_ID` (`Year_ID`);
 
 --
 -- Indexes for table `tb_image`
@@ -275,13 +483,14 @@ ALTER TABLE `tb_login`
 --
 ALTER TABLE `tb_schedule`
   ADD PRIMARY KEY (`Schedule_ID`),
-  ADD UNIQUE KEY `Class_ID` (`Class_ID`);
+  ADD UNIQUE KEY `Day` (`Day`,`Start_Time`,`Class_ID`);
 
 --
 -- Indexes for table `tb_schedule_composate`
 --
 ALTER TABLE `tb_schedule_composate`
-  ADD PRIMARY KEY (`Composite_ID`);
+  ADD PRIMARY KEY (`Composite_ID`),
+  ADD KEY `Schedule_ID` (`Schedule_ID`);
 
 --
 -- Indexes for table `tb_status`
@@ -294,7 +503,7 @@ ALTER TABLE `tb_status`
 --
 ALTER TABLE `tb_student`
   ADD PRIMARY KEY (`Std_No`,`Class_ID`),
-  ADD UNIQUE KEY `Class_ID` (`Class_ID`);
+  ADD KEY `Class_ID` (`Class_ID`);
 
 --
 -- Indexes for table `tb_subject`
@@ -308,7 +517,8 @@ ALTER TABLE `tb_subject`
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`User_ID`);
+  ADD PRIMARY KEY (`User_ID`),
+  ADD UNIQUE KEY `Username` (`Username`);
 
 --
 -- Indexes for table `tb_year`
@@ -322,22 +532,16 @@ ALTER TABLE `tb_year`
 --
 
 --
--- AUTO_INCREMENT for table `tb_check`
---
-ALTER TABLE `tb_check`
-  MODIFY `Check_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสเช็คชื่อ';
-
---
 -- AUTO_INCREMENT for table `tb_class`
 --
 ALTER TABLE `tb_class`
-  MODIFY `Class_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสกลุ่มเรียน', AUTO_INCREMENT=15;
+  MODIFY `Class_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสกลุ่มเรียน', AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_schedule`
 --
 ALTER TABLE `tb_schedule`
-  MODIFY `Schedule_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสตารางสอน', AUTO_INCREMENT=15;
+  MODIFY `Schedule_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสตารางสอน', AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tb_schedule_composate`
@@ -349,19 +553,506 @@ ALTER TABLE `tb_schedule_composate`
 -- AUTO_INCREMENT for table `tb_subject`
 --
 ALTER TABLE `tb_subject`
-  MODIFY `Subject_PK` int(2) NOT NULL AUTO_INCREMENT COMMENT 'รหัสวิชา', AUTO_INCREMENT=15;
+  MODIFY `Subject_PK` int(2) NOT NULL AUTO_INCREMENT COMMENT 'รหัสวิชา', AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `User_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสผู้ใช้งาน', AUTO_INCREMENT=7;
+  MODIFY `User_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสผู้ใช้งาน', AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tb_year`
 --
 ALTER TABLE `tb_year`
-  MODIFY `Year_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสปีการศึกษา', AUTO_INCREMENT=26;
+  MODIFY `Year_ID` int(5) NOT NULL AUTO_INCREMENT COMMENT 'รหัสปีการศึกษา', AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tb_checked`
+--
+ALTER TABLE `tb_checked`
+  ADD CONSTRAINT `tb_checked_ibfk_1` FOREIGN KEY (`Class_ID`) REFERENCES `tb_class` (`Class_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_checked_ibfk_2` FOREIGN KEY (`Schedule_ID`) REFERENCES `tb_schedule` (`Schedule_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_checked_ibfk_3` FOREIGN KEY (`Std_No`) REFERENCES `tb_student` (`Std_No`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_class`
+--
+ALTER TABLE `tb_class`
+  ADD CONSTRAINT `tb_class_ibfk_1` FOREIGN KEY (`Subject_PK`) REFERENCES `tb_subject` (`Subject_PK`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_class_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `tb_user` (`User_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_class_ibfk_3` FOREIGN KEY (`Year_ID`) REFERENCES `tb_year` (`Year_ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_schedule`
+--
+ALTER TABLE `tb_schedule`
+  ADD CONSTRAINT `tb_schedule_ibfk_1` FOREIGN KEY (`Class_ID`) REFERENCES `tb_class` (`Class_ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_schedule_composate`
+--
+ALTER TABLE `tb_schedule_composate`
+  ADD CONSTRAINT `tb_schedule_composate_ibfk_1` FOREIGN KEY (`Schedule_ID`) REFERENCES `tb_schedule` (`Schedule_ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_student`
+--
+ALTER TABLE `tb_student`
+  ADD CONSTRAINT `tb_student_ibfk_1` FOREIGN KEY (`Class_ID`) REFERENCES `tb_class` (`Class_ID`) ON UPDATE CASCADE;
+--
+-- Database: `phpmyadmin`
+--
+CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `phpmyadmin`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__bookmark`
+--
+
+CREATE TABLE `pma__bookmark` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `query` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__central_columns`
+--
+
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_length` text COLLATE utf8_bin DEFAULT NULL,
+  `col_collation` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) COLLATE utf8_bin DEFAULT '',
+  `col_default` text COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__column_info`
+--
+
+CREATE TABLE `pma__column_info` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__designer_settings`
+--
+
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `settings_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__export_templates`
+--
+
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `export_type` varchar(10) COLLATE utf8_bin NOT NULL,
+  `template_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `template_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__favorite`
+--
+
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__history`
+--
+
+CREATE TABLE `pma__history` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sqlquery` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__navigationhiding`
+--
+
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__pdf_pages`
+--
+
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `page_nr` int(10) UNSIGNED NOT NULL,
+  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__recent`
+--
+
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+--
+-- Dumping data for table `pma__recent`
+--
+
+INSERT INTO `pma__recent` (`username`, `tables`) VALUES
+('root', '[{\"db\":\"fpc\",\"table\":\"tb_subject\"},{\"db\":\"fpc\",\"table\":\"tb_class\"},{\"db\":\"fpc\",\"table\":\"tb_student\"},{\"db\":\"fpc\",\"table\":\"tb_checked\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__relation`
+--
+
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__savedsearches`
+--
+
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_coords`
+--
+
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT 0,
+  `x` float UNSIGNED NOT NULL DEFAULT 0,
+  `y` float UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_info`
+--
+
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_uiprefs`
+--
+
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `prefs` text COLLATE utf8_bin NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__tracking`
+--
+
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
+  `schema_sql` text COLLATE utf8_bin DEFAULT NULL,
+  `data_sql` longtext COLLATE utf8_bin DEFAULT NULL,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
+  `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__userconfig`
+--
+
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `config_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+
+--
+-- Dumping data for table `pma__userconfig`
+--
+
+INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
+('root', '2021-09-12 16:21:20', '{\"Console\\/Mode\":\"collapse\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__usergroups`
+--
+
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tab` varchar(64) COLLATE utf8_bin NOT NULL,
+  `allowed` enum('Y','N') COLLATE utf8_bin NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__users`
+--
+
+CREATE TABLE `pma__users` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pma__central_columns`
+--
+ALTER TABLE `pma__central_columns`
+  ADD PRIMARY KEY (`db_name`,`col_name`);
+
+--
+-- Indexes for table `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
+
+--
+-- Indexes for table `pma__designer_settings`
+--
+ALTER TABLE `pma__designer_settings`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
+
+--
+-- Indexes for table `pma__favorite`
+--
+ALTER TABLE `pma__favorite`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__history`
+--
+ALTER TABLE `pma__history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
+
+--
+-- Indexes for table `pma__navigationhiding`
+--
+ALTER TABLE `pma__navigationhiding`
+  ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  ADD PRIMARY KEY (`page_nr`),
+  ADD KEY `db_name` (`db_name`);
+
+--
+-- Indexes for table `pma__recent`
+--
+ALTER TABLE `pma__recent`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__relation`
+--
+ALTER TABLE `pma__relation`
+  ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
+
+--
+-- Indexes for table `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
+
+--
+-- Indexes for table `pma__table_coords`
+--
+ALTER TABLE `pma__table_coords`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
+
+--
+-- Indexes for table `pma__table_info`
+--
+ALTER TABLE `pma__table_info`
+  ADD PRIMARY KEY (`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__table_uiprefs`
+--
+ALTER TABLE `pma__table_uiprefs`
+  ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__tracking`
+--
+ALTER TABLE `pma__tracking`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
+
+--
+-- Indexes for table `pma__userconfig`
+--
+ALTER TABLE `pma__userconfig`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__usergroups`
+--
+ALTER TABLE `pma__usergroups`
+  ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
+
+--
+-- Indexes for table `pma__users`
+--
+ALTER TABLE `pma__users`
+  ADD PRIMARY KEY (`username`,`usergroup`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__history`
+--
+ALTER TABLE `pma__history`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Database: `test`
+--
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

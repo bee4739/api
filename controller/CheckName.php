@@ -163,6 +163,7 @@ class CheckName
       WHERE `tb_checked`.`Status` IS NOT NULL
       AND `tb_checked`.`Date` =  CURRENT_DATE()
       AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
       ORDER BY  `Std_ID`
       "
     );
