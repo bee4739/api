@@ -48,6 +48,12 @@ class CheckName
       }
     }
 
+    $Composite_ID = 0;
+
+    if (isset($rawData['Composite_ID'])) {
+      $Composite_ID = $rawData['Composite_ID'];
+    }
+
     if (count($query_user) > 0) {
       foreach ($query_user as $list_result) {
         if (count($list_result['result']) > 0) {
@@ -57,15 +63,17 @@ class CheckName
           Schedule_ID,
           Class_ID,
           Composite_ID,
-          Status
+          Status,
+          Time
           )
           VALUES
           (
           '" . $list_result['result'][0]['User_ID'] . "',
           '" . $rawData['Schedule_ID'] . "',
           '" . $rawData['Class_ID'] . "',
-          '" . @$rawData['Composite_ID'] . "',
-          '" . $rawData['Status'] . "'
+          '" . $Composite_ID . "',
+          '" . $rawData['Status'] . "',
+          NOW()
           );");
         }
       }

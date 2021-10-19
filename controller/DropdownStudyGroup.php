@@ -83,7 +83,8 @@ class DropdownStudyGroup
       ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK` 
       LEFT JOIN `tb_year` 
       ON `tb_class`.`Year_ID` = `tb_year`.`Year_ID`
-      WHERE User_ID = '" . $rawData['Username'] . "';"
+      WHERE User_ID = '" . $rawData['Username'] . "'
+     ORDER BY `tb_year`.`Year`"
     );
 
     $response->getBody()->write(\json_encode($query));
