@@ -35,6 +35,7 @@ $app->post('/insertScheduleAttend', \Controller\InsertScheduleAttend::class . ":
 $app->post('/delScheduleAttend', \Controller\InsertScheduleAttend::class . ":delScheduleAttend");
 $app->post('/editScheduleAttend', \Controller\InsertScheduleAttend::class . ":editScheduleAttend");
 $app->post('/insertCompensate', \Controller\InsertScheduleAttend::class . ":insertCompensate");
+$app->post('/getSd', \Controller\InsertScheduleAttend::class . ":getSd");
 
 $app->post('/getDay', \Controller\Day::class . ":getDay");
 
@@ -53,5 +54,10 @@ $app->post('/gettime', \Controller\CheckName::class . ":gettime");
 $app->post('/getSummarySub', \Controller\CheckName::class . ":getSummarySub");
 $app->post('/getSummary', \Controller\CheckName::class . ":getSummary");
 $app->post('/getTimeCheck', \Controller\CheckName::class . ":getTimeCheck");
+$app->post('/updateStatus', \Controller\CheckName::class . ":updateStatus");
 
 $app->post('/insertregister', \Controller\Register::class . ":insertregister");
+
+$app->post('/resultchecksubject', \Controller\Resultcheck::class . ":resultchecksubject");
+$app->post('/resultcheck', \Controller\Resultcheck::class . ":resultcheck");
+$app->post('/showresultcheck', \Controller\Resultcheck::class . ":showresultcheck");

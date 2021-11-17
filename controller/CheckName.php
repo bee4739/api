@@ -57,24 +57,35 @@ class CheckName
     if (count($query_user) > 0) {
       foreach ($query_user as $list_result) {
         if (count($list_result['result']) > 0) {
-          $insertStatus[] = $db->query("INSERT INTO tb_checked
-          (
-          Std_No,
-          Schedule_ID,
-          Class_ID,
-          Composite_ID,
-          Status,
-          Time
-          )
-          VALUES
-          (
-          '" . $list_result['result'][0]['User_ID'] . "',
-          '" . $rawData['Schedule_ID'] . "',
-          '" . $rawData['Class_ID'] . "',
-          '" . $Composite_ID . "',
-          '" . $rawData['Status'] . "',
-          NOW()
-          );");
+          // $insertStatus[] = $db->query("INSERT INTO tb_checked
+          // (
+          // Std_No,
+          // Schedule_ID,
+          // Class_ID,
+          // Composite_ID,
+          // Status,
+          // Time
+          // )
+          // VALUES
+          // (
+          // '" . $list_result['result'][0]['User_ID'] . "',
+          // '" . $rawData['Schedule_ID'] . "',
+          // '" . $rawData['Class_ID'] . "',
+          // '" . $Composite_ID . "',
+          // '" . $rawData['Status'] . "',
+          // NOW()
+          // );");
+
+          $insertStatus[] = $db->query("UPDATE `tb_checked` SET 
+            `Composite_ID` = '" . $Composite_ID . "',
+            `Status` = '" . $rawData['Status'] . "',
+            `Time` = NOW()
+            WHERE `tb_checked`.`Std_No` = '" . $list_result['result'][0]['User_ID'] . "'
+            AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+            AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+            AND `tb_checked`.`Status` = 'ขาด'
+            AND `tb_checked`.`Date` = CURRENT_DATE()
+            ");
         }
       }
     }
@@ -88,6 +99,7 @@ class CheckName
       WHERE tb_checked.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
       AND tb_checked.`Class_ID` = '" . $rawData['Class_ID'] . "'
       AND tb_checked.`Date` = CURRENT_DATE()
+      AND tb_checked.`Status` != 'ขาด'
       "
     );
 
@@ -144,35 +156,58 @@ class CheckName
     $rawData = json_decode(file_get_contents('php://input'), true);
     // $a =  "IF(`tb_checked`.`Status` IS NULL, " - ", `tb_checked`.`Status`) AS 'Status',
     //       IF(`tb_checked`.`Time` IS NULL, " - ", `tb_checked`.`Time`) AS 'Time'";
+    // $query = $db->query(
+    //   "SELECT 	`tb_student`.`Std_ID`, 
+    //             `tb_student`.`Std_Title`,
+    //             `tb_student`.`Std_FirstName`, 
+    //             `tb_student`.`Std_LastName`,
+    //             `tb_checked`.`Status`,
+    //             `tb_checked`.`Time`
+    //   FROM `tb_student` 
+    //   LEFT JOIN `tb_checked`
+    //   ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
+    //   AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
+    //   WHERE `tb_checked`.`Status` IS NULL
+    //   AND `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+    //   UNION
+    //   SELECT 	  `tb_student`.`Std_ID`, 
+    //             `tb_student`.`Std_Title`,
+    //             `tb_student`.`Std_FirstName`, 
+    //             `tb_student`.`Std_LastName`,
+    //             `tb_checked`.`Status`,
+    //             `tb_checked`.`Time`
+    //   FROM `tb_student` 
+    //   LEFT JOIN `tb_checked`
+    //   ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
+    //   AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
+    //   WHERE `tb_checked`.`Status` IS NOT NULL
+    //   AND `tb_checked`.`Date` =  CURRENT_DATE()
+    //   AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+    //   AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+    //   ORDER BY  `Std_ID`
+    //   "
+    // );
+
     $query = $db->query(
-      "SELECT 	`tb_student`.`Std_ID`, 
-                `tb_student`.`Std_Title`,
-                `tb_student`.`Std_FirstName`, 
-                `tb_student`.`Std_LastName`,
-                `tb_checked`.`Status`,
-                `tb_checked`.`Time`
-      FROM `tb_student` 
-      LEFT JOIN `tb_checked`
-      ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
-      AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
-      WHERE `tb_checked`.`Status` IS NULL
-      AND `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'
-      UNION
-      SELECT 	  `tb_student`.`Std_ID`, 
-                `tb_student`.`Std_Title`,
-                `tb_student`.`Std_FirstName`, 
-                `tb_student`.`Std_LastName`,
-                `tb_checked`.`Status`,
-                `tb_checked`.`Time`
-      FROM `tb_student` 
-      LEFT JOIN `tb_checked`
-      ON `tb_student`.`Std_No` = `tb_checked`.`Std_No`
-      AND `tb_student`.`Class_ID` =  `tb_checked`.`Class_ID`
-      WHERE `tb_checked`.`Status` IS NOT NULL
-      AND `tb_checked`.`Date` =  CURRENT_DATE()
-      AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
-      AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
-      ORDER BY  `Std_ID`
+      "SELECT 	
+      `tb_student`.`Std_ID`, 
+      `tb_student`.`Std_FirstName`,
+          `tb_student`.`Std_LastName`,
+          `tb_checked`.`Std_No`,
+          `tb_checked`.`Status`,
+          `tb_checked`.`Time`,
+          `tb_checked`.`Date`,
+          `tb_checked`.`Schedule_ID`,
+          `tb_checked`.`Class_ID`
+  FROM `tb_checked` 
+  LEFT JOIN `tb_student`
+  ON `tb_checked`.`Std_No` = `tb_student`.`Std_No`
+  AND `tb_checked`.`Class_ID` = `tb_student`.`Class_ID`
+  WHERE `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+  AND `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+  AND `tb_checked`.`Status` = 'ขาด'
+  AND `tb_checked`.`Date` = CURRENT_DATE
+  ORDER BY `tb_student`.`Std_ID`
       "
     );
 
@@ -199,8 +234,27 @@ class CheckName
       WHERE `tb_checked`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
       AND `tb_checked`.`Class_ID` = '" . $rawData['Class_ID'] . "'
       AND `tb_checked`.`Date` = CURRENT_DATE()
+      AND tb_checked.`Status` != 'ขาด' 
+      AND tb_checked.`Status` != 'ลา' 
       "
     );
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
+
+  public function updateStatus(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+    $query = $db->query("UPDATE `tb_checked` 
+    SET	`Status`= '" . $rawData['ddStatus'] . "'
+    WHERE `Status` = 'ขาด'
+    AND `Std_No` = '" . $rawData['Std_No'] . "'
+    AND `Schedule_ID` = '" . $rawData['Schedule_ID'] . "'
+      AND `Class_ID` = '" . $rawData['Class_ID'] . "'
+      AND `Date` = CURRENT_DATE()
+    ");
 
     $response->getBody()->write(\json_encode($query));
     return $response;

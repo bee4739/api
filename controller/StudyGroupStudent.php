@@ -72,7 +72,7 @@ class StudyGroupStudent
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
     $query = $db->query(
-      "SELECT `Time`, `Status` ,  `tb_student`.`Class_ID`, `tb_student`.`Std_No`
+      "SELECT `Time`, `Status`,  `tb_student`.`Class_ID`, `tb_student`.`Std_No`, `Date`
       FROM `tb_checked`
       LEFT JOIN `tb_student`
       ON `tb_checked`.`Class_ID` = `tb_student`.`Class_ID`

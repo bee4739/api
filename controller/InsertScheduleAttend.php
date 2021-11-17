@@ -96,4 +96,32 @@ class InsertScheduleAttend
     $response->getBody()->write(\json_encode($query));
     return $response;
   }
+
+  public function getSd(Request $request, Response $response, $args)
+  {
+    $db = new \Tools\Database();
+    $rawData = json_decode(file_get_contents('php://input'), true);
+
+    $query = $db->query(
+      "INSERT INTO `tb_checked` (Std_No, Schedule_ID, Class_ID, Composite_ID, Status, Time)
+      SELECT 	`tb_student`.`Std_No`,
+          `tb_schedule`.`Schedule_ID`,
+              `tb_student`.`Class_ID`,
+              `tb_schedule_composate`.`Composite_ID`,
+              'ขาด',
+              CURRENT_TIMESTAMP
+      FROM `tb_student`
+      LEFT JOIN `tb_class`
+      ON `tb_student`.`Class_ID` = `tb_class`.`Class_ID`
+      LEFT JOIN `tb_schedule`
+      ON `tb_class`.`Class_ID` = `tb_schedule`.`Class_ID`
+      LEFT JOIN `tb_schedule_composate`
+      ON `tb_schedule`.`Schedule_ID` = `tb_schedule_composate`.`Schedule_ID`
+      WHERE `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+      AND `tb_schedule`.`Schedule_ID` = '" . $rawData['Schedule_ID'] . "'"
+    );
+
+    $response->getBody()->write(\json_encode($query));
+    return $response;
+  }
 }
