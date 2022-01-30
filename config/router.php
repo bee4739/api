@@ -56,8 +56,13 @@ $app->post('/getSummary', \Controller\CheckName::class . ":getSummary");
 $app->post('/getTimeCheck', \Controller\CheckName::class . ":getTimeCheck");
 $app->post('/updateStatus', \Controller\CheckName::class . ":updateStatus");
 
-$app->post('/insertregister', \Controller\Register::class . ":insertregister");
+$app->post('/registerStudent', \Controller\Register::class . ":registerStudent");
+$app->post('/registerTeacher', \Controller\Register::class . ":registerTeacher");
 
 $app->post('/resultchecksubject', \Controller\Resultcheck::class . ":resultchecksubject");
 $app->post('/resultcheck', \Controller\Resultcheck::class . ":resultcheck");
 $app->post('/showresultcheck', \Controller\Resultcheck::class . ":showresultcheck");
+$app->post('/rsDate', \Controller\Resultcheck::class . ":rsDate");
+$app->post('/rsStatus', \Controller\Resultcheck::class . ":rsStatus");
+$app->post('/showEdit', \Controller\Resultcheck::class . ":showEdit");
+$app->post('/updateCheck', \Controller\Resultcheck::class . ":updateCheck");

@@ -138,8 +138,9 @@ class DropdownStudyGroup
     $rawData = json_decode(file_get_contents('php://input'), true);
 
     $query = $db->query("DELETE FROM `tb_student` 
-                         WHERE `tb_student`.`Std_No` = '" . $rawData['Std_No'] . "'
-                         AND `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'");
+                          WHERE `tb_student`.`Std_No` = '" . $rawData['Std_No'] . "'
+                          AND `tb_student`.`Class_ID` = '" . $rawData['Class_ID'] . "'
+                         ");
 
     $response->getBody()->write(\json_encode($query));
     return $response;
