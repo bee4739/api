@@ -36,40 +36,9 @@ class Day
   ON `tb_class`.`Year_ID` = `tb_year`.`Year_ID`
   LEFT JOIN `tb_subject` 
   ON `tb_class`.`Subject_PK` = `tb_subject`.`Subject_PK`
+    WHERE `tb_class`.`User_ID` =  '" . $rawData['User_ID'] . "'
          ");
-    // $day = array();
-    // $startDate = '2021-04-01';
-    // $endDate = '2021-04-30';
-    // for ($i = strtotime($startDate); $i <= strtotime($endDate); $i = strtotime('+1 day', $i)) {
-    //   if (date('N', $i) == 1) { //Monday == 1
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    //   elseif (date('N', $i) == 2) { //Tuesday == 2
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    //   elseif (date('N', $i) == 3) { //06Wednesday == 3
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    //   elseif (date('N', $i) == 4) { //07Thursday == 4
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    //   elseif (date('N', $i) == 5) { //08Friday == 5
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    //   elseif (date('N', $i) == 6) { //09Saturday == 6
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    //   elseif (date('N', $i) == 7) { //10Sunday == 7
-    //     echo date('l Y-m-d', $i); //prints the date only if it's a Monday
-    //     array_push($day, date('l Y-m-d', $i));
-    //   }
-    // }
+
     $response->getBody()->write(\json_encode($query));
     return $response;
   }

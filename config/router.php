@@ -36,6 +36,9 @@ $app->post('/delScheduleAttend', \Controller\InsertScheduleAttend::class . ":del
 $app->post('/editScheduleAttend', \Controller\InsertScheduleAttend::class . ":editScheduleAttend");
 $app->post('/insertCompensate', \Controller\InsertScheduleAttend::class . ":insertCompensate");
 $app->post('/getSd', \Controller\InsertScheduleAttend::class . ":getSd");
+$app->post('/addSchedule', \Controller\InsertScheduleAttend::class . ":addSchedule");
+$app->post('/addScheduleA', \Controller\InsertScheduleAttend::class . ":addScheduleA");
+$app->post('/addScheduleAB', \Controller\InsertScheduleAttend::class . ":addScheduleAB");
 
 $app->post('/getDay', \Controller\Day::class . ":getDay");
 

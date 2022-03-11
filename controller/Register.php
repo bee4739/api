@@ -11,6 +11,9 @@ class Register
   {
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
+
+    $strSd = explode("/", $rawData['Title']);
+
     $query = $db->query(
       "INSERT INTO tb_user
             (
@@ -27,14 +30,14 @@ class Register
             )
             VALUES
             (
-            '" . $rawData['Username'] . "',
+            '" . strtolower($rawData['Username']) . "',
             '" . $rawData['Std_ID'] . "',
-            '" . $rawData['Title'] . "',
+            '$strSd[0]',
             '" . $rawData['FirstName'] . "',
             '" . $rawData['LastName'] . "',
-            '" . $rawData['Title_Eng'] . "',
-            '" . $rawData['FirstName_Eng'] . "',
-            '" . $rawData['LastName_Eng'] . "',
+            '$strSd[1]',
+            '" . ucwords($rawData['FirstName_Eng']) . "',
+            '" . ucwords($rawData['LastName_Eng']) . "',
             '2',
             '" . $rawData['User_Password'] . "'
             );"
@@ -48,6 +51,9 @@ class Register
   {
     $db = new \Tools\Database();
     $rawData = json_decode(file_get_contents('php://input'), true);
+
+    $strSd = explode("/", $rawData['Title']);
+
     $query = $db->query(
       "INSERT INTO tb_user
             (
@@ -63,13 +69,13 @@ class Register
             )
             VALUES
             (
-            '" . $rawData['Username'] . "',
-            '" . $rawData['Title'] . "',
+            '" . strtolower($rawData['Username']) . "',
+            '$strSd[0]',
             '" . $rawData['FirstName'] . "',
             '" . $rawData['LastName'] . "',
-            '" . $rawData['Title_Eng'] . "',
-            '" . $rawData['FirstName_Eng'] . "',
-            '" . $rawData['LastName_Eng'] . "',
+            '$strSd[1]',
+            '" . ucwords($rawData['FirstName_Eng']) . "',
+            '" . ucwords($rawData['LastName_Eng']) . "',
             '1',
             '" . $rawData['User_Password'] . "'
             );"

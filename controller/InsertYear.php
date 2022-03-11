@@ -16,22 +16,14 @@ class InsertYear
         Year,
         Term,
         Start_SchYear,
-        End_SchYear,
-        Start_Midterm,
-        End_Midterm,
-        Start_Final,
-        End_Final
+        End_SchYear
         )
         VALUES
         (
         '" . $rawData['Year'] . "',
         '" . $rawData['Term'] . "',
         '" . $rawData['Start_SchYear'] . "',
-        '" . $rawData['End_SchYear'] . "',
-        '" . $rawData['Start_Midterm'] . "',
-        '" . $rawData['End_Midterm'] . "',
-        '" . $rawData['Start_Final'] . "',
-        '" . $rawData['End_Final'] . "'
+        '" . $rawData['End_SchYear'] . "'
         );");
 
     $response->getBody()->write(\json_encode($query));
@@ -43,7 +35,7 @@ class InsertYear
     $db = new \Tools\Database();
     $query = $db->query(
       "SELECT * FROM `tb_year`
-      ORDER BY Year;"
+      ORDER BY Year DESC"
     );
     //output
     $response->getBody()->write(\json_encode($query));

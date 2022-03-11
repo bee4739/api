@@ -32,7 +32,7 @@ class Resultcheck
       LEFT JOIN `tb_year`
       ON `tb_year`.`Year_ID` = `tb_class`.`Year_ID`
       
-      -- WHERE `tb_year`.`Year_ID` = '1'
+      WHERE `tb_class`.`User_ID` =   '" . $rawData['User_ID'] . "'
       "
     );
 
@@ -57,7 +57,9 @@ class Resultcheck
       LEFT JOIN `tb_student`
       ON `tb_checked`.`Std_No` = `tb_student`.`Std_No`
       
-      WHERE `tb_checked`.`Class_ID` = '" . $rawData['dds'] . "'"
+      WHERE `tb_checked`.`Class_ID` = '" . $rawData['dds'] . "'
+      ORDER BY `tb_student`.`Std_ID`
+      "
     );
 
     $response->getBody()->write(\json_encode($query));
